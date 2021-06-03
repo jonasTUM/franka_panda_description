@@ -4,7 +4,7 @@
 
 
         <!-- Load Gazebo lib and set the robot namespace -->
-        <xacro:if value="${use_gazebo_control}">
+        <!--xacro:if value="${use_gazebo_control}">
             <gazebo>
                 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
                     <robotNamespace>/</robotNamespace>
@@ -22,9 +22,16 @@
                     <eStopTopic>sim_estop</eStopTopic>
                 </plugin>
             </gazebo>
-        </xacro:unless>
+        </xacro:unless-->
 
-
+        <!-- Load Gazebo with extended interfaces. See https://github.com/smihael/panda_sim_hw. -->
+        <gazebo>
+            <plugin name="panda_hw_gazebo_plugin" filename="libpanda_hw_gazebo_plugin.so">
+                <robotSimType>panda_hw_gazebo/PandaRobotHWSim</robotSimType>
+                <legacyModeNS>true</legacyModeNS>
+            </plugin>
+        </gazebo>
+        
         <transmission name="${robot_name}_tran_1">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${robot_name}_joint1">
